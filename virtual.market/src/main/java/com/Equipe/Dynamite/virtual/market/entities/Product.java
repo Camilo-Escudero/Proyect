@@ -7,41 +7,41 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Product {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
 	private int stock;
-	
 	@Column(length = 50)
 	private String name;
-	
 	private String description;
-	
-	
 	private double price;
-	
 	@ManyToOne(optional = false,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Categorie categorie;
-	
+	@Lob
+	private Byte[] image;
 	public Product() {
-		
 	}
-
-	public Product(int id, int stock, String name, String description, double price,Categorie categorie) {
+	public Product(int id, int stock, String name, String description, double price, Categorie categorie,
+			Byte[] image) {
 		super();
 		this.id = id;
 		this.stock = stock;
 		this.name = name;
 		this.description = description;
 		this.price = price;
-		this.categorie=categorie;
+		this.categorie = categorie;
+		this.image = image;
 	}
+	public Product(Byte[] image) {
+		super();
+		this.image = image;
+	}
+
 
 	public int getId() {
 		return id;
@@ -90,5 +90,14 @@ public class Product {
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
+
+	public Byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(Byte[] image) {
+		this.image = image;
+	}
+
 	
 }
